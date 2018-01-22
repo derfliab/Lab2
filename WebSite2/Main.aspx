@@ -20,8 +20,9 @@
         <asp:Button ID="ShowData" runat="server" style="margin-right:20px" OnClick="ShowDataBtn_Click" Text="Show Data" />
         <br />
         <br />
-         
-        
+        <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+        <br />
+        <asp:Label ID="Label" runat="server" />
     
     </div>
         

@@ -17,146 +17,58 @@ using System.Data.SqlClient;
 
 public partial class _Default : System.Web.UI.Page
 {
-    public static Employee[] addEmployee = new Employee[3];
+     
+   
+    public static int employeeID;
+    public static string firstName;
+    public static string lastName;
+    public static string middleI;
+    public static string houseNum;
+    public static string street;
+    public static string cityCounty;
+    public static string state;
+    public static string country;
+    public static string zip;
+    public static DateTime DOB;
+    public static DateTime hireDate;
+    public static DateTime termDate;
+    public static double salary;
+    public static int managerID;
+    public static string lastUpdatedBy;
+    public static DateTime lastUpdated;
 
-    public static int next = 0;
-    public string name = "Andrea Derflinger";
+
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
         selectSkills();
         clearLabel();
-         
+        employeeID = int.Parse(txtEmployeeID.Value);
+        firstName = txtFirstName.Value;
+        lastName = txtLastName.Value;
+        middleI = txtMI.Value;
+        houseNum = txtHouseNumber.Value;
+        street = txtStreet.Value;
+        cityCounty = txtCity.Value;
+        state = txtState.Value;
+        country = txtCountry.Value;
+        zip = txtZip.Value;
+        DOB = DateTime.Parse(txtDOB.Value);
+        hireDate = DateTime.Parse(txtHire.Value);
+        termDate = DateTime.Parse(txtTerm.Value);
+        salary = double.Parse(txtSalary.Value);
+        managerID = int.Parse(txtManager.Value);
+        lastUpdatedBy = "Andrea Derflinger";
+        lastUpdated = DateTime.Now;
+        
+
+
+        
   
         
     }
-    protected void InsertBtn_Click(object sender, EventArgs e)
-    {
-
-        
-        DateTime currentDate = DateTime.Now;
-        DateTime check = DateTime.Parse(txtDOB.Value).AddYears(18);
-        DateTime oldcheck = DateTime.Parse(txtDOB.Value).AddYears(65);
-        bool working = true;
-        string country = txtCountry.Value;
-        // Checks Validation for the following if statements. If any of them return false, the employee will not be added to the array.
-
-                //Checks if the termination date has nothing in it
-                if (txtTerm.Value != "")
-                {
-                   
-                
-                    if (compareDates(DateTime.Parse(txtHire.Value), DateTime.Parse(txtTerm.Value)) == false)
-                    {
-                        working = false;
-                        Label.Text += "Termination Date exceeds Hire Date";
-
-                    }
-                }
-                // Checks if the birthdate is over 18
-                if (check.Date >= currentDate.Date)
-                {
-                    working = false;
-                    Label.Text += "Invalid Birth Day- Please make sure you are over 18.";
-
-                }
-                // Checks if the birthdate is under 65
-                if (oldAge(DateTime.Parse(txtDOB.Value)) >= 65)
-                {
-                     working = false;
-                     Label.Text += "Invalid Birth Day- You must be younger than 65";
-                }
-                // Compare if the Name or EmployeeID have been inserted
-                if (compareName(txtFirstName.Value, txtLastName.Value) == false && compareID(txtEmployeeID.Value) == false)
-                {
-                    working = false;
-                    Label.Text += "Name or ID already exist";
-                }
-                // Checks if Manager ID exists
-                if (txtManager.Value != "")
-                {
-                     if (findManagerID(int.Parse(txtManager.Value))==false)
-                     {
-                        working = false;
-                        Label.Text += "Manager ID does not exist";
-                     }
-                }
-                // Checks if State is a valid state
-                if (txtState.Value != "")
-                {
-                     if (findState(txtState.Value) == false)
-                     {
-                        working = false;
-                        Label.Text += "Enter a valid state";
-                     }
-                }
-                // Checks if country is set to US
-                if (country.ToUpper() != "US")
-                {
-                   working = false;
-                   Label.Text += "Please make the country US";
-                }
-        // If all validation are working then the Employee will be added to the array
-        if (working == true)
-        {
-            string MI;
-            string State;
-            DateTime Term;
-            int managerID;
-
-
-            if (txtMI.Value == "")
-            {
-                MI = "NULL";
-            }
-            else
-            {
-                MI = txtMI.Value;
-            }
-
-            if (txtState.Value == "")
-            {
-                State = "NULL";
-            }
-            else
-            {
-                State = txtState.Value;
-            }
-
-            if (txtTerm.Value == "")
-            {
-                Term = DateTime.MinValue;
-
-            }
-            else
-            {
-                Term = DateTime.Parse(txtTerm.Value);
-            }
-
-            if (String.IsNullOrEmpty(txtManager.Value))
-            {
-                managerID = -1;
-            }
-            else
-            {
-                managerID = int.Parse(txtManager.Value);
-            }
-
-            //Add Employee
-            addEmployee[next++] = new Employee(int.Parse(txtEmployeeID.Value), txtFirstName.Value, txtLastName.Value, MI, DateTime.Parse(txtDOB.Value), txtHouseNumber.Value, txtStreet.Value, txtCity.Value,
-                              State, txtCountry.Value, txtZip.Value, DateTime.Parse(txtHire.Value), Term, managerID, double.Parse(txtSalary.Value), name, DateTime.Now);
-            Label.Text += "Employee has been inserted!";
-
-            // Enabled 
-            if (next == 3)
-            {
-                InsertBtn.Enabled = false;
-            }
-
-        }    
-       
-         
-    }
+     
     // Find the state in an array
     private bool findState(string state)
     {
@@ -302,27 +214,17 @@ public partial class _Default : System.Web.UI.Page
     }
 
     //Employee Commit Button
-    protected void EmployeeCommitBtn_Click(object sender, EventArgs e)
-    {
-        deleteAll();
-        for (int i = 0; i < next; i++)
-        {
-            EmployeeCommitInsert(addEmployee[i]);
-        }
-        next = 0;
-        Array.Clear(addEmployee, 0, addEmployee.Length);
-
-    }
+ 
 
     //Employee Commit Insert
-    private void EmployeeCommitInsert(Employee e)
+    protected void EmployeeCommitBtn_Click (object sender, EventArgs e)
     {
         
         try
         {
             
             System.Data.SqlClient.SqlConnection sc = new System.Data.SqlClient.SqlConnection();
-            sc.ConnectionString = @"Server =Localhost ;Database=Lab1;Trusted_Connection=Yes;";
+            sc.ConnectionString = @"Server =Localhost ;Database=Lab2;Trusted_Connection=Yes;";
 
             sc.Open();
 
@@ -386,7 +288,7 @@ public partial class _Default : System.Web.UI.Page
     private void deleteAll()
     {
         System.Data.SqlClient.SqlConnection sc = new System.Data.SqlClient.SqlConnection();
-        sc.ConnectionString = @"Server =Localhost ;Database=Lab1;Trusted_Connection=Yes;";
+        sc.ConnectionString = @"Server =Localhost ;Database=Lab2;Trusted_Connection=Yes;";
         System.Data.SqlClient.SqlCommand insert = new System.Data.SqlClient.SqlCommand();
         insert.Connection = sc;
         sc.Open();
@@ -404,7 +306,7 @@ public partial class _Default : System.Web.UI.Page
         try
         {
             System.Data.SqlClient.SqlConnection sc = new System.Data.SqlClient.SqlConnection();
-            sc.ConnectionString = @"Server =Localhost ;Database=Lab1;Trusted_Connection=Yes;";
+            sc.ConnectionString = @"Server =Localhost ;Database=Lab2;Trusted_Connection=Yes;";
             System.Data.SqlClient.SqlCommand insert = new System.Data.SqlClient.SqlCommand();
             insert.CommandText = "select SkillName from [dbo].[SKILL]";
             insert.Connection = sc;
