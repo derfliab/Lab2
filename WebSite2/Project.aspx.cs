@@ -12,7 +12,12 @@ public partial class _Default : System.Web.UI.Page
 
     }
 
-    protected void ProjectBtn_Click(object sender, EventArgs e)
+    protected void ProjectCommitBtn_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void ClearBtn_Click(object sender, EventArgs e)
     {
 
     }

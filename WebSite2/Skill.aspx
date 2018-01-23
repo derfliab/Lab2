@@ -1,43 +1,15 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Skill.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Skill.aspx.cs" Inherits="_Default" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
-        #skillID {
-            width: 150px;
-        }
-        #skillName {
-            width: 150px;
-        }
-        #skillDescription {
-            width: 150px;
+        .auto-style1 {
+            height: 23px;
         }
     </style>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <h1>Skill Form:</h1>
-        <ul>
-            <li><a href="Main.aspx">Return to Main</a></li>
-            <li><a href="Employee.aspx">Add Employee</a></li>
-            <li><a href="Project.aspx">Add Project</a></li>
-        </ul>
-    <div>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <table id="skillinfo" style="width:200%">
-        <tr>
-            
-            <td>
-                Skill ID:
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input id="skillID" type="text" runat="server" />
-            </td>
-        </tr>
+       
         <tr>
             <td>
                 Skill Name:
@@ -49,7 +21,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="auto-style1">
                 Skill Description:
             </td>
         </tr>
@@ -61,9 +33,8 @@
         
      </table>
           <br />
+          <asp:Button ID="Clear" runat="server" style="margin-right:20px" OnClick="ClearBtn_Click" Text="Clear" />  
           <asp:Button ID="SkillCommit" runat="server" style="margin-right:20px" OnClick="SkillBtn_Click" Text="Skill Commit" />
 
-    </div>
-    </form>
-</body>
-</html>
+</asp:Content>
+

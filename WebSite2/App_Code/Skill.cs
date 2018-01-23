@@ -6,15 +6,6 @@ using System.Web;
 /// <summary>
 /// Summary description for Class1
 /// </summary>
-/// 
-
-/**
- * CIS 484-Lab 1
- * Author: Andrea Derflinger 
- * Date: 1/19/2018
- * Honor Pledge: This work and I comply with the JMU Honor Code.
-**/
-
 public class Skill
 {
     int skillID;
@@ -55,7 +46,7 @@ public class Skill
         get { return lastUpdatedBy; }
         private set { lastUpdatedBy = value; }
     }
-    
+
     public DateTime LastUpdated
     {
         get { return lastUpdated; }

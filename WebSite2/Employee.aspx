@@ -1,223 +1,200 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Employee.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Employee.aspx.cs" Inherits="_Default" %>
 
-<!--
- * CIS 484-Lab 1
- * Author: Andrea Derflinger 
- * Date: 1/19/2018
- * Honor Pledge: This work and I comply with the JMU Honor Code.
--->
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Andrea Derflinger</title>
-    <style>
-        tr.spaceUnder>td {
-        padding-bottom: 3em;
-        }
-        tr{
-            padding: 12%;
-        }
- 
-        .auto-style1 {
-            width: 16%;
-        }
-
-    
- 
-        #txtEmployeeID {
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        .auto-style3 {
             margin-left: 0px;
         }
-
-        
- 
+        .auto-style4 {
+            width: 247px;
+        }
+        .auto-style5 {
+            width: 2980px;
+        }
+        .auto-style6 {
+            width: 247px;
+            height: 44px;
+        }
+        .auto-style7 {
+            width: 2980px;
+            height: 44px;
+        }
     </style>
-</head>
-<body>
-    
-    <form id="form1" runat="server">
-        <h1>Employee Form:</h1>
-         <ul>
-            <li><a href="Main.aspx">Return to Main</a></li>
-            <li><a href="Skill.aspx">Add Skill</a></li>
-            <li><a href="Project.aspx">Add Project</a></li>
-        </ul>
-    <div> 
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server"> 
+    <div>
         <table id="employeeinfo" style="width:200%"  >
            
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style4">
                     First Name:
                 </td>
-                <td>
+                <td class="auto-style5">
                     House Number:
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style4">
                     <input type="text" id="txtFirstName" required="" runat="server" maxlength ="20"  />
                      
                 </td>
-                <td>
-                    <input type="text" id="txtHouseNumber" required="" runat="server" maxlength="10"/>
+                <td class="auto-style5">
+                    <input type="text" id="txtHouseNumber" required="" runat="server" maxlength="10" class="auto-style3"/>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style4">
                     Last Name:
                 </td>
-                <td>
+                <td class="auto-style5">
                     Street:
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style4">
                     <input id="txtLastName" type="text" required="" runat="server" maxlength="30"/>
                 </td>
-                <td>
+                <td class="auto-style5">
                     <input id="txtStreet" type="text" required="" runat="server" maxlength="20"/>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style4">
                     MI*:
                 </td>
-                <td>
+                <td class="auto-style5">
                     City/County:
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style4">
                     <input id="txtMI" type="text" runat="server" maxlength="1"/>
                 </td>
-                <td>
+                <td class="auto-style5">
                     <input id="txtCity" type="text" required="" runat="server" maxlength="25"/>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style4">
                     Date-Of-Birth:
                 </td>
-                <td>
+                <td class="auto-style5">
                     State*:
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style4">
                     <input id="txtDOB" type="text" required="" runat="server" placeholder="YYYY-MM-DD"/>
                     
                 </td>
-                <td>
+                <td class="auto-style5">
                     <input id ="txtState" type="text" runat="server" maxlength="2" />
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
-                    Employee ID:</td>
-                <td>
+               <td>
+                    Skills:
+                </td>  
+                <td class="auto-style4">
                     Country:
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
-                    <input id="txtEmployeeID" type="text" required="" runat="server"/></td>
                 <td>
+                    <asp:DropDownList ID="DropDownSkill" required="" runat="server" Width="127px"></asp:DropDownList>
+                </td>
+                <td class="auto-style4">
                     <input id="txtCountry" type="text"   required="" runat="server" maxlength="2"/>
                 </td>
             </tr>
             <tr >
-                <td class="auto-style1">
+                <td class="auto-style4">
 
-                    Skills:</td>
-                <td>
+                    </td>
+                <td class="auto-style5">
                     ZipCode:
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style4">
 
-                    <asp:DropDownList ID="DropDownSkill" required="" runat="server" Width="127px"></asp:DropDownList>
+                    
 
                 </td>
-                <td>
+                <td class="auto-style5">
                      <input id="txtZip" type="text" required="" runat="server" maxlength="5"/>
                 </td>
             </tr>
             <tr class="spaceUnder">
                 <!-- Empty Row -->
-                <td class="auto-style1">
+                <td class="auto-style6">
 
                 </td>
-                <td>
+                <td class="auto-style7">
 
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style4">
                     Hire Date:
                 </td>
-                <td>
+                <td class="auto-style5">
                     Termination Date*:
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style4">
                      
                     <input id="txtHire" runat="server" type="text" placeholder="YYYY-MM-DD"/>
                      
                 </td>
-                <td>
+                <td class="auto-style5">
                     <input id="txtTerm" runat="server" type="text" placeholder="YYYY-MM-DD"/>
                      
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style4">
                     Manager ID*:
                 </td>
-                <td>
+                <td class="auto-style5">
                     Salary:
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style4">
                     <input id="txtManager" type="text" runat="server"/>
                 </td>
-                <td>
+                <td class="auto-style5">
                     <input id="txtSalary" required="" type="text" runat="server"/>
                 </td>
             </tr>
              <tr>
                 <!-- Empty Row -->
-                <td class="auto-style1">
+                <td class="auto-style4">
 
                 </td>
-                <td>
+                <td class="auto-style5">
 
                 </td>
             </tr>
-                
-   
         
         </table>
-           <p>
+        <p>
         &nbsp*Fields may be left empty.
     </p>  
          
         
-        <asp:Button ID="InsertBtn" runat="server" style="margin-right:20px" OnClick="InsertBtn_Click" Text="Insert" />
+         
         <asp:Button ID="ClearBtn" runat="server" style="margin-right:20px" OnClick="ClearBtn_Click" Text="Clear" />
         <asp:Button ID="EmployeeCommittBtn" runat="server" style="margin-right:20px" OnClick="EmployeeCommitBtn_Click" Text="Employee Commit" />
-        <asp:Button ID="ExitBtn" runat="server" style="margin-right:20px" OnClick="ExitBtn_Click" Text="Exit" formnovalidate="" />
+         
         <br />
         <br />
         <br />
         <asp:Label ID="Label" runat="server" />
-    </div>
-    </form>
-    
-</body>
-</html>
+        </div>
+        
+</asp:Content>
 
 
