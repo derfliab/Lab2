@@ -22,6 +22,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server"> 
+    <body>
     <div>
         <table id="employeeinfo" style="width:200%"  >
            
@@ -188,12 +189,19 @@
          
         <asp:Button ID="ClearBtn" runat="server" style="margin-right:20px" OnClick="ClearBtn_Click" Text="Clear" />
         <asp:Button ID="EmployeeCommittBtn" runat="server" style="margin-right:20px" OnClick="EmployeeCommitBtn_Click" Text="Employee Commit" />
+        <asp:Button ID="ShowData" runat="server" style="margin-right:20px" OnClick="ShowDataBtn_Click" Text="Show Data" />
+        <br />
+        <br />
+        <asp:GridView ID="EmployeeData" runat="server"></asp:GridView>
          
         <br />
+
         <br />
         <br />
         <asp:Label ID="Label" runat="server" />
+
         </div>
+        </body>
         
 </asp:Content>
 

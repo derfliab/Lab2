@@ -4,48 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
 
 public partial class _Default : System.Web.UI.Page
 {
      
-    public static string firstName;
-    public static string lastName;
-    public static string middleI;
-    public static string houseNum;
-    public static string street;
-    public static string cityCounty;
-    public static string state;
-    public static string country;
-    public static string zip;
-    public static DateTime DOB;
-    public static DateTime hireDate;
-    public static DateTime termDate;
-    public static double salary;
-    public static int managerID;
-    public static string lastUpdatedBy;
-    public static DateTime lastUpdated;
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         selectSkills();
         clearLabel();
-         
-        firstName = txtFirstName.Value;
-        lastName = txtLastName.Value;
-        middleI = txtMI.Value;
-        houseNum = txtHouseNumber.Value;
-        street = txtStreet.Value;
-        cityCounty = txtCity.Value;
-        state = txtState.Value;
-        country = txtCountry.Value;
-        zip = txtZip.Value;
-        DOB = DateTime.Parse(txtDOB.Value);
-        hireDate = DateTime.Parse(txtHire.Value);
-        termDate = DateTime.Parse(txtTerm.Value);
-        salary = double.Parse(txtSalary.Value);
-        managerID = int.Parse(txtManager.Value);
-        lastUpdatedBy = "Andrea Derflinger";
-        lastUpdated = DateTime.Now;
-
+  
     }
 
     protected void ClearBtn_Click(object sender, EventArgs e)
@@ -70,8 +39,127 @@ public partial class _Default : System.Web.UI.Page
 
     protected void EmployeeCommitBtn_Click(object sender, EventArgs e)
     {
-        Employee newEmployee = new Employee(firstName, lastName, middleI, DOB, houseNum, street, cityCounty, state, country, zip, hireDate, termDate, managerID, salary, lastUpdatedBy, lastUpdated);
-        CommitToDB(newEmployee);
+        DateTime currentDate = DateTime.Now;
+        DateTime check = DateTime.Parse(txtDOB.Value).AddYears(18);
+        DateTime oldcheck = DateTime.Parse(txtDOB.Value).AddYears(65);
+        bool working = true;
+        string country = txtCountry.Value;
+        // Checks Validation for the following if statements. If any of them return false, the employee will not be added to the array.
+
+        //Checks if the termination date has nothing in it
+        if (txtTerm.Value != "")
+        {
+
+
+            if (compareDates(DateTime.Parse(txtHire.Value), DateTime.Parse(txtTerm.Value)) == false)
+            {
+                working = false;
+                Label.Text += "Termination Date exceeds Hire Date";
+
+            }
+        }
+
+        // Checks if the birthdate is over 18
+        if (check.Date >= currentDate.Date)
+        {
+            working = false;
+            Label.Text += "Invalid Birth Day- Please make sure you are over 18.";
+
+        }
+
+        // Checks if the birthdate is under 65
+        if (oldAge(DateTime.Parse(txtDOB.Value)) >= 65)
+        {
+            working = false;
+            Label.Text += "Invalid Birth Day- You must be younger than 65";
+        }
+
+        // Compare if the Name or EmployeeID have been inserted
+        if (compareName(txtFirstName.Value, txtLastName.Value) == false)
+        {
+            working = false;
+            Label.Text += "Name already exist in the database";
+        }
+
+        // Checks if Manager ID exists
+        if (txtManager.Value != "")
+        {
+            if (findManagerID(int.Parse(txtManager.Value)) == false)
+            {
+                working = false;
+                Label.Text += "Manager ID does not exist";
+            }
+        }
+
+        // Checks if State is a valid state
+        if (txtState.Value != "")
+        {
+            if (findState(txtState.Value) == false)
+            {
+                working = false;
+                Label.Text += "Enter a valid state";
+            }
+        }
+
+        // Checks if country is set to US
+        if (country.ToUpper() != "US")
+        {
+            working = false;
+            Label.Text += "Please make the country US";
+        }
+
+        if (working == true)
+        {
+            string MI;
+            string State;
+            DateTime Term;
+            int managerID;
+
+
+            if (txtMI.Value == "")
+            {
+                MI = "NULL";
+            }
+            else
+            {
+                MI = txtMI.Value;
+            }
+
+            if (txtState.Value == "")
+            {
+                State = "NULL";
+            }
+            else
+            {
+                State = txtState.Value;
+            }
+
+            if (txtTerm.Value == "")
+            {
+                Term = DateTime.MinValue;
+
+            }
+            else
+            {
+                Term = DateTime.Parse(txtTerm.Value);
+            }
+
+            if (String.IsNullOrEmpty(txtManager.Value))
+            {
+                managerID = -1;
+            }
+            else
+            {
+                managerID = int.Parse(txtManager.Value);
+            }
+
+            string name = "Andrea Derflinger";
+            Employee newEmployee = new Employee(txtFirstName.Value, txtLastName.Value, MI, DateTime.Parse(txtDOB.Value), txtHouseNumber.Value, txtStreet.Value, txtCity.Value,
+                                  State, txtCountry.Value, txtZip.Value, DateTime.Parse(txtHire.Value), Term, managerID, double.Parse(txtSalary.Value), name, DateTime.Now);
+
+
+            CommitToDB(newEmployee);
+        }
     }
     private void CommitToDB(Employee e)
     {
@@ -168,4 +256,93 @@ public partial class _Default : System.Web.UI.Page
         }
     }
 
+    protected void ShowDataBtn_Click(object sender, EventArgs e)
+    {
+        System.Data.SqlClient.SqlConnection sc = new System.Data.SqlClient.SqlConnection();
+        sc.ConnectionString = @"Server =Localhost ;Database=Lab2;Trusted_Connection=Yes;";
+        System.Data.SqlClient.SqlCommand insert = new System.Data.SqlClient.SqlCommand();
+        insert.CommandText = "select * from [dbo].[Employee]";
+        insert.Connection = sc;
+        sc.Open();
+        SqlDataReader rdr = insert.ExecuteReader();
+        EmployeeData.DataSource = rdr;
+        EmployeeData.DataBind();
+        sc.Close();
+         
+
     }
+
+    // Find the state in an array
+    private bool findState(string state)
+    {
+        string[] states = new string[] {"AK","ak","AL","al","AR","ar","AS","as","AZ","az","CA","ca","CO","co","CT","ct",
+                      "DC","dc","DE","de","FL","fl","GA","ga","GU","gu","HI","hi","IA","ia","ID","id","IL","il","IN","in","KS","ks","KY","ky",
+                      "LA","la","MA","ma","MD","md","ME","me","MI","mi","MN","mn","MO","mo","MS","ms","MT","mt","NC","nc","ND","nd","NE","ne",
+                      "NH","nh","NJ","nj","NM","nm","NV","nv","NY","ny","OH","oh","OK","ok","OR","or","PA","pa","PR","pr","RI","ri","SC","sc",
+                      "SD","sd","TN","tn","TX","tx","UT","ut","VA","va","VI","vi","VT","vt","WA","wa","WI","wi","WV","wv","WY","wy"};
+        bool fstate = false;
+        for (int i = 0; i < states.Length; i++)
+        {
+
+            string array = states[i];
+
+            if (state == array)
+            {
+                fstate = true;
+                return fstate;
+            }
+
+        }
+        return fstate;
+    }
+
+    private bool compareDates(DateTime hiredate, DateTime termdate)
+    {
+        bool dateCompare = false;
+        if (termdate > hiredate)
+        {
+
+            dateCompare = true;
+            return dateCompare;
+        }
+
+        return dateCompare;
+    }
+
+    //Find if the employee is older than 65
+    private int oldAge(DateTime dob)
+    {
+        int age = 0;
+        age = (DateTime.Today.Year - dob.Year);
+        return age;
+    }
+    private bool compareName(string firstName, string lastName)
+    {
+        bool comparename = true;
+        int result = 0;
+            System.Data.SqlClient.SqlConnection sc = new System.Data.SqlClient.SqlConnection();
+            sc.ConnectionString = @"Server =Localhost ;Database=Lab2;Trusted_Connection=Yes;";
+            System.Data.SqlClient.SqlCommand insert = new System.Data.SqlClient.SqlCommand();
+            insert.Connection = sc;
+            sc.Open();
+            insert.CommandText = "select Count(*) FROM [dob].[Employee] WHERE UPPER(FirstName) LIKE '"
+             + firstName.ToUpper() + "' AND UPPER(LastName) LIKE '" + lastName.ToUpper() + "'";
+            SqlDataReader mySqlDataReader = insert.ExecuteReader();
+            result = (int)insert.ExecuteScalar();
+            if (result > 0)
+            {
+            comparename = false;
+            return comparename;
+            }
+            else
+            {
+            return comparename;
+            }
+            sc.Close();
+            
+        
+       
+    }
+
+
+}
