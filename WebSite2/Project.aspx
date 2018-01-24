@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <td>
-                <input id="projectName" type="text" runat="server" />
+                <input id="txtprojectName" type="text" runat="server" />
             </td>
         </tr>
         <tr>
@@ -22,7 +22,7 @@
         </tr>
         <tr>
             <td>
-                <input id="projectDescription" type="text" runat="server" />
+                <input id="txtprojectDescription" type="text" runat="server" />
             </td>
         </tr>
         
@@ -30,7 +30,8 @@
           <br />
           <asp:Button ID="Clear" runat="server" style="margin-right:20px" OnClick="ClearBtn_Click" Text="Clear" />
           <asp:Button ID="ProjectCommit" runat="server" style="margin-right:20px" OnClick="ProjectCommitBtn_Click" Text="Project Commit" />
-          
+          <br />
+          <asp:Label ID="Label" runat="server" />
 
 </asp:Content>
 

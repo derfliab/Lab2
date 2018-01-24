@@ -81,15 +81,15 @@ public partial class _Default : System.Web.UI.Page
             Label.Text += "Name already exist in the database";
         }
 
-        // Checks if Manager ID exists
-        if (txtManager.Value != "")
-        {
-            if (findManagerID(int.Parse(txtManager.Value)) == false)
-            {
-                working = false;
-                Label.Text += "Manager ID does not exist";
-            }
-        }
+        //// Checks if Manager ID exists
+        //if (txtManager.Value != "")
+        //{
+        //    if (findManagerID(int.Parse(txtManager.Value)) == false)
+        //    {
+        //        working = false;
+        //        Label.Text += "Manager ID does not exist";
+        //    }
+        //}
 
         // Checks if State is a valid state
         if (txtState.Value != "")
@@ -152,13 +152,14 @@ public partial class _Default : System.Web.UI.Page
             {
                 managerID = int.Parse(txtManager.Value);
             }
+             
+                string name = "Andrea Derflinger";
+                Employee newEmployee = new Employee(txtFirstName.Value, txtLastName.Value, MI, DateTime.Parse(txtDOB.Value), txtHouseNumber.Value, txtStreet.Value, txtCity.Value,
+                                      State, txtCountry.Value, txtZip.Value, DateTime.Parse(txtHire.Value), Term, managerID, double.Parse(txtSalary.Value), name, DateTime.Now);
 
-            string name = "Andrea Derflinger";
-            Employee newEmployee = new Employee(txtFirstName.Value, txtLastName.Value, MI, DateTime.Parse(txtDOB.Value), txtHouseNumber.Value, txtStreet.Value, txtCity.Value,
-                                  State, txtCountry.Value, txtZip.Value, DateTime.Parse(txtHire.Value), Term, managerID, double.Parse(txtSalary.Value), name, DateTime.Now);
 
-
-            CommitToDB(newEmployee);
+                CommitToDB(newEmployee);
+            
         }
     }
     private void CommitToDB(Employee e)
@@ -215,7 +216,7 @@ public partial class _Default : System.Web.UI.Page
             insert.CommandText += e.LastUpdatedBy + "', '" + e.LastUpdated + "')";
 
 
-            Label.Text += "Employees have been committed!";
+            Label.Text += "Employee has been added to the database!";
             insert.ExecuteNonQuery();
             sc.Close();
 

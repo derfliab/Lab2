@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <td>
-                <input id="skillName" type="text" runat="server" />
+                <input id="txtskillName" required="" type="text" runat="server" />
             </td>
         </tr>
         <tr>
@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <td>
-                <input id="skillDescription" type="text" runat="server" />
+                <input id="txtskillDescription" required="" type="text" runat="server" />
             </td>
         </tr>
         
@@ -35,6 +35,7 @@
           <br />
           <asp:Button ID="Clear" runat="server" style="margin-right:20px" OnClick="ClearBtn_Click" Text="Clear" />  
           <asp:Button ID="SkillCommit" runat="server" style="margin-right:20px" OnClick="SkillBtn_Click" Text="Skill Commit" />
-
+    <br />
+    <asp:Label ID="Label" runat="server" />
 </asp:Content>
 

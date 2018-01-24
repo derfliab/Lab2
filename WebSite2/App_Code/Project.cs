@@ -8,34 +8,29 @@ using System.Web;
 /// </summary>
 public class Project
 {
-    int projectID;
+     
     string projectName;
     string projectDescription;
     string lastUpdatedBy;
     DateTime lastUpdated;
 
-    public Project(int projectID, string projectName, string projectDescription, string LastUpdatedBy, DateTime LastUpdated)
+    public Project(string projectName, string projectDescription, string LastUpdatedBy, DateTime LastUpdated)
     {
-        ProjectID = projectID;
-        SkillName = projectName;
-        SkillDescription = projectDescription;
+         
+        ProjectName = projectName;
+        ProjectDescription = projectDescription;
         LastUpdatedBy = lastUpdatedBy;
         LastUpdated = lastUpdated;
     }
 
-    public int ProjectID
-    {
-        get { return projectID; }
-        private set { projectID = value; }
-    }
 
-    public string SkillName
+    public string ProjectName
     {
         get { return projectName; }
         private set { projectName = value; }
     }
 
-    public string SkillDescription
+    public string ProjectDescription
     {
         get { return projectDescription; }
         private set { projectDescription = value; }

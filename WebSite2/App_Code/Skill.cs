@@ -8,25 +8,18 @@ using System.Web;
 /// </summary>
 public class Skill
 {
-    int skillID;
+     
     string skillName;
     string skillDescription;
     string lastUpdatedBy;
     DateTime lastUpdated;
 
-    public Skill(int skillID, string skillName, string skillDescription, string LastUpdatedBy, DateTime LastUpdated)
+    public Skill(string skillName, string skillDescription, string LastUpdatedBy, DateTime LastUpdated)
     {
-        SkillID = skillID;
         SkillName = skillName;
         SkillDescription = skillDescription;
         LastUpdatedBy = lastUpdatedBy;
         LastUpdated = lastUpdated;
-    }
-
-    public int SkillID
-    {
-        get { return skillID; }
-        private set { skillID = value; }
     }
 
     public string SkillName
