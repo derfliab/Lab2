@@ -412,6 +412,10 @@ public partial class _Default : System.Web.UI.Page
             sc.Open();
             insert.CommandText = "SELECT MAX(EmployeeID) FROM [dbo].[EMPLOYEE]";
             int i = (int)insert.ExecuteScalar();
+            if (i == null)
+            {
+                return -1;
+            }
             sc.Close();
             return i;
 
@@ -431,7 +435,7 @@ public partial class _Default : System.Web.UI.Page
             System.Data.SqlClient.SqlCommand insert = new System.Data.SqlClient.SqlCommand();
             insert.Connection = sc;
             sc.Open();
-            insert.CommandText = "";
+            insert.CommandText = "insert into [dbo].[EMPLOYEESKILL] values(" + findMax() +;
             sc.Close();
         }
 
