@@ -13,6 +13,7 @@ public partial class _Default : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         selectSkills();
+        selectProjects();
         clearLabel();
   
     }
@@ -177,7 +178,7 @@ public partial class _Default : System.Web.UI.Page
             insert.Connection = sc;
 
 
-            insert.CommandText += "insert into [dbo].[EMPLOYEE] values (" + e.EmployeeID + ", '" + e.FName + "', '" + e.LName;
+            insert.CommandText += "insert into [dbo].[EMPLOYEE] values ('" + e.FName + "', '" + e.LName;
             if (e.MI == "NULL")
             {
                 insert.CommandText += "', " + e.MI + ", '";
@@ -247,12 +248,38 @@ public partial class _Default : System.Web.UI.Page
             sc.Open();
             DropDownSkill.DataSource = insert.ExecuteReader();
             DropDownSkill.DataTextField = "SkillName";
+            DropDownProject.Items.Add("No Skill");
             DropDownSkill.DataBind();
             sc.Close();
         }
         catch (Exception s)
         {
             Label.Text += "Skill Error";
+            Label.Text += s.Message;
+        }
+    }
+
+    private void selectProjects()
+    {
+
+        try
+        {
+            System.Data.SqlClient.SqlConnection sc = new System.Data.SqlClient.SqlConnection();
+            sc.ConnectionString = @"Server =Localhost ;Database=Lab2;Trusted_Connection=Yes;";
+            System.Data.SqlClient.SqlCommand insert = new System.Data.SqlClient.SqlCommand();
+            insert.CommandText = "select ProjectName from [dbo].[PROJECT]";
+            insert.Connection = sc;
+            sc.Open();
+            DropDownProject.DataSource = insert.ExecuteReader();
+            DropDownProject.DataTextField = "ProjectName";
+            DropDownProject.Items.Add("No Project");
+            DropDownProject.DataBind();
+            
+            sc.Close();
+        }
+        catch (Exception s)
+        {
+            Label.Text += "Project Error";
             Label.Text += s.Message;
         }
     }
@@ -319,31 +346,99 @@ public partial class _Default : System.Web.UI.Page
     }
     private bool compareName(string firstName, string lastName)
     {
-        bool comparename = true;
-        int result = 0;
+         
+            bool comparename = true;
+            int result = 0;
             System.Data.SqlClient.SqlConnection sc = new System.Data.SqlClient.SqlConnection();
             sc.ConnectionString = @"Server =Localhost ;Database=Lab2;Trusted_Connection=Yes;";
             System.Data.SqlClient.SqlCommand insert = new System.Data.SqlClient.SqlCommand();
             insert.Connection = sc;
             sc.Open();
-            insert.CommandText = "select Count(*) FROM [dob].[Employee] WHERE UPPER(FirstName) LIKE '"
+            insert.CommandText = "select Count(*) FROM [dbo].[Employee] WHERE UPPER(FirstName) LIKE '"
              + firstName.ToUpper() + "' AND UPPER(LastName) LIKE '" + lastName.ToUpper() + "'";
-            SqlDataReader mySqlDataReader = insert.ExecuteReader();
             result = (int)insert.ExecuteScalar();
+            sc.Close();
             if (result > 0)
             {
-            comparename = false;
-            return comparename;
+                comparename = false;
+                return comparename;
             }
+
             else
             {
-            return comparename;
+                return comparename;
             }
-            sc.Close();
             
         
-       
+
+
+
+
+        }
+
+    private bool compareOne(string item, string table, string field)
+    {
+        int result = 0;
+        bool compareOne = true;
+        System.Data.SqlClient.SqlConnection sc = new System.Data.SqlClient.SqlConnection();
+        sc.ConnectionString = @"Server =Localhost ;Database=Lab2;Trusted_Connection=Yes;";
+        System.Data.SqlClient.SqlCommand insert = new System.Data.SqlClient.SqlCommand();
+        insert.Connection = sc;
+        sc.Open();
+        insert.CommandText = "select Count(*) FROM [dbo].[" + table + "] WHERE UPPER(" + field + ") LIKE '" + item.ToUpper() + "'";
+        result = (int)insert.ExecuteScalar();
+        sc.Close();
+        if (result > 0)
+        {
+            compareOne = false;
+            return compareOne;
+        }
+
+        else
+        {
+            return compareOne;
+        }
+
     }
 
+    private int findMax()
+    {
+        try
+        {
+            System.Data.SqlClient.SqlConnection sc = new System.Data.SqlClient.SqlConnection();
+            sc.ConnectionString = @"Server =Localhost ;Database=Lab2;Trusted_Connection=Yes;";
+            System.Data.SqlClient.SqlCommand insert = new System.Data.SqlClient.SqlCommand();
+            insert.Connection = sc;
+            sc.Open();
+            insert.CommandText = "SELECT MAX(EmployeeID) FROM [dbo].[EMPLOYEE]";
+            int i = (int)insert.ExecuteScalar();
+            sc.Close();
+            return i;
+
+        }
+        catch(Exception u)
+        {
+            return -1;
+        }
+    }
+
+    private void insertEmployeeSkill()
+    {
+        try
+        {
+            System.Data.SqlClient.SqlConnection sc = new System.Data.SqlClient.SqlConnection();
+            sc.ConnectionString = @"Server =Localhost ;Database=Lab2;Trusted_Connection=Yes;";
+            System.Data.SqlClient.SqlCommand insert = new System.Data.SqlClient.SqlCommand();
+            insert.Connection = sc;
+            sc.Open();
+            insert.CommandText = "";
+            sc.Close();
+        }
+
+        catch(Exception t)
+        {
+            Label.Text += "Data was not inserted into EmployeeSkill table.";
+        }
+    }
 
 }

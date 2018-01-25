@@ -19,11 +19,15 @@
             width: 2980px;
             height: 44px;
         }
+        body{
+            background-color: lightsteelblue;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server"> 
     <body>
     <div>
+        <h1>Employee Form:</h1>
         <table id="employeeinfo" style="width:200%"  >
            
             <tr>
@@ -102,7 +106,7 @@
             </tr>
             <tr>
                 <td>
-                    <asp:DropDownList ID="DropDownSkill" required="" runat="server" Width="127px"></asp:DropDownList>
+                    <asp:DropDownList ID="DropDownSkill" required="" runat="server" Width="128px"></asp:DropDownList>
                 </td>
                 <td class="auto-style4">
                     <input id="txtCountry" type="text"   required="" runat="server" maxlength="2"/>
@@ -110,7 +114,7 @@
             </tr>
             <tr >
                 <td class="auto-style4">
-
+                    Projects:
                     </td>
                 <td class="auto-style5">
                     ZipCode:
@@ -118,6 +122,10 @@
             </tr>
             <tr>
                 <td class="auto-style4">
+
+                    
+
+                    <asp:DropDownList ID="DropDownProject" required="" runat="server" Width="128px"></asp:DropDownList>
 
                     
 
@@ -189,7 +197,7 @@
          
         <asp:Button ID="ClearBtn" runat="server" style="margin-right:20px" OnClick="ClearBtn_Click" Text="Clear" />
         <asp:Button ID="EmployeeCommittBtn" runat="server" style="margin-right:20px" OnClick="EmployeeCommitBtn_Click" Text="Employee Commit" />
-        <asp:Button ID="ShowData" runat="server" style="margin-right:20px" OnClick="ShowDataBtn_Click" Text="Show Data" />
+        <asp:Button ID="ShowData" runat="server" style="margin-right:20px" OnClick="ShowDataBtn_Click" formnovalidate="false" Text="Show Data" />
         <br />
         <br />
         <asp:GridView ID="EmployeeData" runat="server"></asp:GridView>

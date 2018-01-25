@@ -8,6 +8,7 @@
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
+ 
     
         
     
@@ -23,9 +24,9 @@
             </Items>
              <StaticHoverStyle BackColor="#33CCFF" />
              <StaticMenuItemStyle HorizontalPadding="10px" ItemSpacing="15px" />
-             <StaticMenuStyle Height="20px" HorizontalPadding="10px" />
+             <StaticMenuStyle Height="30px" HorizontalPadding="10px" BorderStyle="None" />
         </asp:Menu>
-
+        <br />
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
